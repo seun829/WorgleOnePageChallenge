@@ -332,7 +332,57 @@
             }
 
             function checkGameWon() {
-                
+                let dataRow = checkRow();
+                const letterTiles = dataRow.querySelectorAll('.letter-tile');
+                letterTiles.forEach((tile, index) => {
+
+                });
+            }
+
+            function checkRow() {
+                const gameBoard = document.getElementById('game-board');
+                if (lives - 1 == 7) {
+                    const dataRow = gameBoard.querySelector('[data-row="0"]');
+                }
+
+                if (lives - 1 == 6) {
+                    const dataRow = gameBoard.querySelector('[data-row="1"]');
+                }
+
+                if (lives - 1 == 5) {
+                    const dataRow = gameBoard.querySelector('[data-row="2"]');
+                }
+
+                if (lives - 1 == 4) {
+                    const dataRow = gameBoard.querySelector('[data-row="3"]');
+                }
+
+                if (lives - 1 == 3) {
+                    const dataRow = gameBoard.querySelector('[data-row="4"]');
+                }
+
+                if (lives - 1 == 2) {
+                    const dataRow = gameBoard.querySelector('[data-row="5"]');
+                }
+
+                if (lives - 1 == 1) {
+                    const dataRow = gameBoard.querySelector('[data-row="6"]');
+                }
+
+                if (lives - 1 == 0) {
+                    const dataRow = gameBoard.querySelector('[data-row="7"]');
+                }
+
+                return dataRow;
+            }
+
+            function checkTile() {
+                let dataRow = checkRow();
+                const letterTiles = dataRow.querySelectorAll('.letter-tile');
+                letterTiles.forEach((tile, index) => {
+
+                });
+
             }
 
 
