@@ -4,15 +4,21 @@
         <meta charset="UTF-8">
         <title>Worgle</title>
 
-        <!-- ****  CSS Feature submission **** -->
-        <!-- using overall dark theme -->
+
         <style>
+            /* ****  CSS Feature submission ****
+            -Dark themed body and global typography
+            -Styled game-card container (border, padding, radius)
+            -Letter tile states (correct / present / absent colors)
+            -On-screen keyboard buttons with hover interaction
+            **** */
+
             body {
                 margin: 0;
                 min-height: 100vh;
-                background-color: #1f2937;
+                background-color: #1f2937; 
                 color: #f9fafb;
-                font-family: system-ui, sans-serif;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             }
 
             main {
@@ -20,96 +26,123 @@
                 padding: 16px;
             }
 
-            /* ****  CSS Feature submission **** */
-            /* made a defined center area */
             .game-card {
                 background-color: #2d3748;
                 border: 1px solid #4b5563;
-                border-radius: 10px;
+                border-radius: 12px;
                 padding: 16px;
+                width: 100%;
+                color: #f9fafb;
             }
 
             .game-header {
                 display: flex;
-                justify-content: space-between;
                 align-items: center;
+                justify-content: space-between;
                 margin-bottom: 16px;
             }
 
             .game-title {
-                font-family: "creepster", sans-serif;
-                font-size: 26px;
+                font-family: "creepster", system-ui, sans-serif;
+                font-size: 28px;
                 color: #f97316;
                 text-align: center;
                 flex: 1;
             }
 
             .stat-pill {
-                background-color: #374151;
+                min-width: 110px;
+                padding: 6px 10px;
+                border-radius: 999px;
                 border: 1px solid #9ca3af;
-                border-radius: 20px;
-                padding: 4px 8px;
+                background-color: #374151;
                 font-size: 12px;
-                display: flex;
+                display: inline-flex;
+                align-items: center;
                 justify-content: space-between;
-                min-width: 90px;
+                color: #f9fafb;
+            }
+
+            .stat-pill-label {
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                font-weight: 600;
+                font-size: 10px;
+            }
+
+            .stat-pill-value {
+                font-weight: 700;
+                font-size: 13px;
             }
 
             #instructions {
                 font-size: 14px;
+                border-radius: 10px;
+                border: 1px #9ca3af;
                 background-color: #111827;
-                border: 1px dashed #9ca3af;
-                border-radius: 8px;
-                padding: 10px;
+                padding: 10px 12px;
                 margin-bottom: 16px;
+                color: #e5e7eb;
             }
 
             #instructions strong {
                 color: #f97316;
             }
 
-            
+            #instructions ul {
+                padding-left: 18px;
+                margin-bottom: 8px;
+            }
+
             #game-board {
                 background-color: #111827;
+                border-radius: 10px;
                 border: 1px solid #6b7280;
-                border-radius: 8px;
-                padding: 10px;
-                text-align: center;
+                padding: 12px 8px;
                 margin-bottom: 16px;
+                text-align: center;
             }
 
             .letter-row {
                 display: flex;
                 justify-content: center;
-                gap: 5px;
-                margin-bottom: 5px;
+                gap: 6px;
+                margin-bottom: 6px;
             }
 
-            /* ****  CSS Feature submission **** */
-            /* made each letter tile a specific design */
             .letter-tile {
                 width: 42px;
-                height: 45px;
-                border: 2px solid #9ca3af;
+                height: 46px;
                 border-radius: 4px;
+                border: 2px solid #9ca3af;
                 background-color: #1f2937;
                 color: #f9fafb;
-                font-weight: 700;
-                font-size: 18px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                font-weight: 700;
+                font-size: 18px;
+                text-transform: uppercase;
             }
 
-            .letter-tile.correct { background-color: #16a34a; color: #fff; }
-            .letter-tile.present { background-color: #fbbf24; color: #111827; }
-            .letter-tile.absent  { background-color: #4b5563; color: #f9fafb; }
+            .letter-tile.correct {
+                background-color: #16a34a;
+                color: #ffffff;
+            }
 
-            /* ****  CSS Feature submission **** */
-            /* styled a keyboard to look polished and organized */
+            .letter-tile.present {
+                background-color: #fbbf24;
+                color: #111827;
+            }
+
+            .letter-tile.absent {
+                background-color: #4b5563;
+                color: #f9fafb;
+            }
+
             #keyboard {
+                width: 100%;
                 text-align: center;
-                margin-top: 8px;
             }
 
             .keyboard-row {
@@ -120,44 +153,44 @@
             }
 
             .key-btn {
-                background-color: #1f2937;
-                border: 1px solid #6b7280;
+                flex: 1 0 auto;
+                max-width: 44px;
                 border-radius: 6px;
-                color: #f9fafb;
+                border: 1px solid #6b7280;
+                background-color: #1f2937;
+                padding: 6px 4px;
                 font-size: 12px;
                 font-weight: 600;
                 text-transform: uppercase;
-                padding: 6px 8px;
+                color: #f9fafb;
                 cursor: pointer;
+            }
+
+            .key-btn.wide {
+                max-width: none;
+                padding-inline: 8px;
             }
 
             .key-btn:hover {
                 background-color: #374151;
             }
 
-            .key-btn.wide {
-                padding: 6px 12px;
-            }
-
             .game-footer {
-                text-align: center;
+                margin-top: 8px;
                 font-size: 13px;
                 color: #d1d5db;
-                margin-top: 10px;
+                text-align: center;
             }
 
             .game-footer span {
-                color: #f97316;
-                border: 1px solid #f97316;
-                border-radius: 10px;
+                border-radius: 999px;
                 padding: 2px 8px;
-                margin-left: 5px;
-            }
-
-            .invalid-row {
-                animation: shake 0.3s;
+                margin-left: 4px;
+                border: 1px solid #f97316;
+                color: #f97316;
             }
         </style>
+
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://use.edgefonts.net/creepster.js"></script>
@@ -166,19 +199,19 @@
 
     <body>
         <!-- ****  HTML Feature submission **** -->
-        <!-- using semantic main and section structure -->
+        <!-- Semantic layout using main, section, header -->
         <!-- ****  Bootstrap Feature submission **** -->
-        <!-- using container-fluid for full-width layout -->
+        <!-- Bootstrap container-fluid for full-width app -->
         <main class="container-fluid">
             <!-- ****  Bootstrap Feature submission **** -->
-            <!-- using row for Bootstrap grid -->
+            <!-- Bootstrap row for layout -->
             <section class="row">
                 <!-- ****  Bootstrap Feature submission **** -->
-                <!-- using col-12 for responsive column -->
+                <!-- Bootstrap column for responsive sizing -->
                 <div class="col-12">
                     <div class="game-card">
                         <!-- ****  HTML Feature submission **** -->
-                        <!-- timer and high score header -->
+                        <!-- Header with high score and timer -->
                         <header class="game-header">
                             <div id="high-score" class="stat-pill">
                                 <span class="stat-pill-label">High</span>
@@ -194,9 +227,9 @@
                         </header>
 
                         <!-- ****  HTML Feature submission **** -->
-                        <!-- instructions block with list -->
+                        <!-- Instructions and lives display -->
                         <div id="instructions">
-                            <p><strong>How to play:</strong> Guess the hidden <strong>6-letter word</strong> in up to <strong>8 lives</strong>.</p>
+                            <p>Guess the hidden 6-letter word in up to 8 lives.</p>
                             <ul>
                                 <li>Each guess must be a 6-letter word.</li>
                                 <li>Tiles change color to show how close your guess is.</li>
@@ -205,13 +238,20 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Lives: <span id="lives-value">8</span></span>
                                 <!-- ****  Bootstrap Feature submission **** -->
-                                <!-- Bootstrap button styling -->
+                                <!-- Bootstrap styled New Game button -->
                                 <button type="button" class="btn btn-outline-light btn-sm" id="new-game-button">New Game</button>
                             </div>
+
+                            <!-- ****  HTML Feature submission **** -->
+                            <!-- Forms input for manual guess submission -->
+                            <form id="guess-form" class="mt-2">
+                                <input type="text" id="guess-input" maxlength="6" class="form-control form-control-sm" placeholder="Type a 6-letter word">
+                                <button type="submit" class="btn btn-sm btn-outline-light mt-2">Submit Guess</button>
+                            </form>
                         </div>
 
                         <!-- ****  HTML Feature submission **** -->
-                        <!-- game board using data-row attributes -->
+                        <!-- Game board built with data-row attributes -->
                         <section id="game-board">
                             <div class="letter-row" data-row="0">
                                 <div class="letter-tile"></div><div class="letter-tile"></div><div class="letter-tile"></div><div class="letter-tile"></div><div class="letter-tile"></div><div class="letter-tile"></div>
@@ -240,7 +280,7 @@
                         </section>
 
                         <!-- ****  HTML Feature submission **** -->
-                        <!-- on-screen keyboard -->
+                        <!-- On-screen keyboard for input -->
                         <section id="keyboard">
                             <div class="keyboard-row">
                                 <button class="key-btn">Q</button><button class="key-btn">W</button><button class="key-btn">E</button><button class="key-btn">R</button><button class="key-btn">T</button><button class="key-btn">Y</button><button class="key-btn">U</button><button class="key-btn">I</button><button class="key-btn">O</button><button class="key-btn">P</button>
@@ -253,23 +293,19 @@
                             </div>
                         </section>
 
-                        <footer class="game-footer">
-                            Keyboard and tiles will update as you play.
-                            <span>Good luck!</span>
-                        </footer>
                     </div>
                 </div>
             </section>
         </main>
 
         <!-- ****  JavaScript Feature submission **** -->
-        <!-- timer and high score logic -->
+        <!-- Timer and high score DOM updates -->
         <!-- ****  JavaScript Feature submission **** -->
-        <!-- random word selection -->
+        <!-- Random word selection and lives tracking -->
         <!-- ****  JavaScript Feature submission **** -->
-        <!-- keyboard input handling -->
+        <!-- Keyboard input handling (physical and on-screen) -->
         <!-- ****  JavaScript Feature submission **** -->
-        <!-- tile coloring based on guess -->
+        <!-- Tile coloring based on guess correctness -->
         <script>
             let lives = 8;
             let totalSeconds = 0;
@@ -304,14 +340,27 @@
 
             function startTimer() {
                 timerInterval = setInterval(function() {
-                    totalSeconds += 1;
+                    totalSeconds = totalSeconds + 1;
 
                     const minutes = Math.floor(totalSeconds / 60);
                     const seconds = totalSeconds % 60;
 
                     let timer = document.getElementById('timer-value');
-                    let formattedMinutes = minutes < 10 ? '0' + minutes : String(minutes);
-                    let formattedSeconds = seconds < 10 ? '0' + seconds : String(seconds);
+
+                    let formattedMinutes;
+                    if (minutes < 10) {
+                        formattedMinutes = '0' + minutes;
+                    } else {
+                        formattedMinutes = String(minutes);
+                    }
+
+                    let formattedSeconds;
+                    if (seconds < 10) {
+                        formattedSeconds = '0' + seconds;
+                    } else {
+                        formattedSeconds = String(seconds);
+                    }
+
                     timer.innerHTML = formattedMinutes + ':' + formattedSeconds;
                 }, 1000);
             }
@@ -328,7 +377,7 @@
 
             function clearBoard() {
                 const tiles = document.querySelectorAll('.letter-tile');
-                tiles.forEach(tile => {
+                tiles.forEach(function(tile) {
                     tile.textContent = "";
                     tile.classList.remove('correct', 'present', 'absent');
                 });
@@ -369,14 +418,15 @@
                 const result = new Array(6).fill('absent');
                 const remaining = target.slice();
 
-                for (let i = 0; i < 6; i++) {
+                let i;
+                for (i = 0; i < 6; i++) {
                     if (guessArr[i] === target[i]) {
                         result[i] = 'correct';
                         remaining[i] = null;
                     }
                 }
 
-                for (let i = 0; i < 6; i++) {
+                for (i = 0; i < 6; i++) {
                     if (result[i] === 'correct') {
                         continue;
                     }
@@ -387,7 +437,7 @@
                     }
                 }
 
-                for (let i = 0; i < 6; i++) {
+                for (i = 0; i < 6; i++) {
                     letterTiles[i].classList.remove('correct', 'present', 'absent');
                     letterTiles[i].classList.add(result[i]);
                 }
@@ -400,8 +450,8 @@
                 const dataRow = checkRow();
                 const letterTiles = dataRow.querySelectorAll('.letter-tile');
                 let guess = "";
-                letterTiles.forEach((tile) => {
-                    guess += tile.textContent.toLowerCase();
+                letterTiles.forEach(function(tile) {
+                    guess = guess + tile.textContent.toLowerCase();
                 });
 
                 if (guess.length !== 6) return;
@@ -415,7 +465,7 @@
                     return;
                 }
 
-                lives -= 1;
+                lives = lives - 1;
                 updateLivesDisplay();
                 currentCol = 0;
 
@@ -433,7 +483,7 @@
                 const dataRow = checkRow();
                 const letterTiles = dataRow.querySelectorAll('.letter-tile');
                 letterTiles[currentCol].textContent = letter.toUpperCase();
-                currentCol += 1;
+                currentCol = currentCol + 1;
             }
 
             function handleBackspace() {
@@ -442,18 +492,19 @@
 
                 const dataRow = checkRow();
                 const letterTiles = dataRow.querySelectorAll('.letter-tile');
-                currentCol -= 1;
+                currentCol = currentCol - 1;
                 letterTiles[currentCol].textContent = "";
             }
 
             function checkGameWon() {
                 const gameBoard = document.getElementById('game-board');
-                for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
+                let rowIndex;
+                for (rowIndex = 0; rowIndex < 8; rowIndex++) {
                     const dataRow = gameBoard.querySelector('[data-row="' + rowIndex + '"]');
                     const letterTiles = dataRow.querySelectorAll('.letter-tile');
                     let guess = "";
-                    letterTiles.forEach((tile) => {
-                        guess += tile.textContent.toLowerCase();
+                    letterTiles.forEach(function(tile) {
+                        guess = guess + tile.textContent.toLowerCase();
                     });
                     if (guess.length === 6 && guess === targetWord.toLowerCase()) {
                         return true;
@@ -486,7 +537,7 @@
             });
 
             const keyButtons = document.querySelectorAll('.key-btn');
-            keyButtons.forEach((btn) => {
+            keyButtons.forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     const label = btn.textContent.trim();
                     if (label === "Enter") {
@@ -497,6 +548,21 @@
                         handleLetter(label);
                     }
                 });
+            });
+
+            const guessForm = document.getElementById('guess-form');
+            guessForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const input = document.getElementById('guess-input');
+                const guess = input.value.trim().toUpperCase();
+                input.value = "";
+                if (!gameActive) return;
+                if (guess.length !== 6) return;
+                let i;
+                for (i = 0; i < 6; i++) {
+                    handleLetter(guess[i]);
+                }
+                handleEnter();
             });
 
             startNewGame();
