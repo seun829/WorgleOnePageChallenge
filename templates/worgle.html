@@ -8,11 +8,7 @@
         <style>
             /* ****  CSS Feature submission ****
             -Dark themed body and a global typography
-            -Styled game-card container with border, padding, radius
-            -Letter tile states (whether it is correct / present / absent colors)
-            -On-screen keyboard buttons with hover interaction
             **** */
-
             body {
                 margin: 0;
                 min-height: 100vh;
@@ -21,11 +17,15 @@
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             }
 
+
             main {
                 min-height: 100vh;
                 padding: 16px;
             }
 
+            /* ****  CSS Feature submission ****
+            -Styled game-card container with border, padding, and also radius
+            **** */
             .game-card {
                 background-color: #2d3748;
                 border: 1px solid #4b5563;
@@ -65,16 +65,11 @@
 
             .stat-pill-label {
                 text-transform: uppercase;
-                letter-spacing: 0.1em;
-                font-weight: 600;
                 font-size: 10px;
             }
 
-            .stat-pill-value {
-                font-weight: 700;
-                font-size: 13px;
-            }
-
+            
+            
             #instructions {
                 font-size: 14px;
                 border-radius: 10px;
@@ -110,6 +105,9 @@
                 margin-bottom: 6px;
             }
 
+            /* ****  CSS Feature submission ****
+            -Letter tile states (whether it is correct / present / absent colors)
+            **** */
             .letter-tile {
                 width: 42px;
                 height: 46px;
@@ -140,6 +138,9 @@
                 color: #f9fafb;
             }
 
+            /* ****  CSS Feature submission ****
+            -On-screen keyboard buttons with hover interaction
+            **** */
             #keyboard {
                 width: 100%;
                 text-align: center;
@@ -294,23 +295,18 @@
             </section>
         </main>
 
-        <!-- ****  JavaScript Feature submission **** -->
-        <!-- Timer and high score DOM updates -->
-        <!-- ****  JavaScript Feature submission **** -->
-        <!-- Random word selection and lives tracking -->
-        <!-- ****  JavaScript Feature submission **** -->
-        <!-- Keyboard input handling with physical and on-screen -->
-        <!-- ****  JavaScript Feature submission **** -->
-        <!-- Tile coloring based on whether the guess was correct or not -->
+        
         <script>
             let lives = 8;
             let totalSeconds = 0;
             let highestSeconds = 0;
             let timerInterval;
-            let targetWord = "";
+            let word = "";
             let gameActive = false;
             let currentCol = 0;
 
+            /* ****  JavaScript Feature submission ****
+            Random word selection and lives tracking */
             const WORD_LIST = [
                 "STREAM","POISON","SHADOW","ORANGE","PLANET","SECRET",
                 "SILVER","TUNNEL","GOBLIN","DRAGON","PUZZLE","CASTLE",
@@ -328,12 +324,27 @@
                 "TRAVEL","BROKEN","HUNTER","SWORDS","VOYAGE","FUTURE",
                 "SPOKEN","MAGICS","BEASTS","THREAD","STRONG"
             ];
-
+        
             function pickRandomWord() {
                 const index = Math.floor(Math.random() * WORD_LIST.length);
                 return WORD_LIST[index];
             }
 
+
+        /*
+        ****  JavaScript Feature submission ****
+        Timer, high score, and lives DOM updates
+        */
+            function updateHighScore() {
+                if (checkGameWon()) {
+                    if (totalSeconds > highestSeconds) {
+                        highestSeconds = totalSeconds;
+                    }
+                    let highScore = document.getElementById('high-score-value');
+                    highScore.innerHTML = highestSeconds + ' sec';
+                }
+            }
+            
             function startTimer() {
                 timerInterval = setInterval(function() {
                     totalSeconds = totalSeconds + 1;
@@ -371,17 +382,21 @@
                 totalSeconds = 0;
             }
 
+            function updateLivesDisplay() {
+                let livesSpan = document.getElementById('lives-value');
+                livesSpan.textContent = lives;
+            }
+
+            
+
+
+
             function clearBoard() {
-                const tiles = document.querySelectorAll('.letter-tile');
+                let tiles = document.querySelectorAll('.letter-tile');
                 tiles.forEach(function(tile) {
                     tile.textContent = "";
                     tile.classList.remove('correct', 'present', 'absent');
                 });
-            }
-
-            function updateLivesDisplay() {
-                const livesSpan = document.getElementById('lives-value');
-                livesSpan.textContent = lives;
             }
 
             function startNewGame() {
@@ -392,7 +407,7 @@
                 lives = 8;
                 currentCol = 0;
                 gameActive = true;
-                targetWord = pickRandomWord();
+                word = pickRandomWord();
                 updateLivesDisplay();
                 startTimer();
             }
@@ -408,21 +423,23 @@
                 return gameBoard.querySelector('[data-row="' + rowIndex + '"]');
             }
 
-            function colorRowTiles(letterTiles, guess) {
-                const target = targetWord.toLowerCase().split('');
-                const guessArr = guess.split('');
-                const result = new Array(6).fill('absent');
-                const remaining = target.slice();
 
-                let i;
-                for (i = 0; i < 6; i++) {
+            /* ****  JavaScript Feature submission ****
+             Tile coloring based on whether the guess was correct or not */
+            function colorRowTiles(letterTiles, guess) {
+                let target = word.toLowerCase().split('');
+                let guessArr = guess.split('');
+                let result = new Array(6).fill('absent');
+                let remaining = target.slice();
+
+                for (let i = 0; i < 6; i++) {
                     if (guessArr[i] === target[i]) {
                         result[i] = 'correct';
                         remaining[i] = null;
                     }
                 }
 
-                for (i = 0; i < 6; i++) {
+                for (let i = 0; i < 6; i++) {
                     if (result[i] === 'correct') {
                         continue;
                     }
@@ -433,12 +450,15 @@
                     }
                 }
 
-                for (i = 0; i < 6; i++) {
+                for (let i = 0; i < 6; i++) {
                     letterTiles[i].classList.remove('correct', 'present', 'absent');
                     letterTiles[i].classList.add(result[i]);
                 }
             }
 
+
+            /* ****  JavaScript Feature submission ****
+            Keyboard input handling with physical and on-screen*/
             function handleEnter() {
                 if (!gameActive) {
                     return;
@@ -447,8 +467,8 @@
                     return;
                 }
 
-                const dataRow = checkRow();
-                const letterTiles = dataRow.querySelectorAll('.letter-tile');
+                let dataRow = checkRow();
+                let letterTiles = dataRow.querySelectorAll('.letter-tile');
                 let guess = "";
                 letterTiles.forEach(function(tile) {
                     guess = guess + tile.textContent.toLowerCase();
@@ -460,7 +480,7 @@
 
                 colorRowTiles(letterTiles, guess);
 
-                if (guess === targetWord.toLowerCase()) {
+                if (guess === word.toLowerCase()) {
                     gameActive = false;
                     stopTimer();
                     updateHighScore();
@@ -518,22 +538,13 @@
                     letterTiles.forEach(function(tile) {
                         guess = guess + tile.textContent.toLowerCase();
                     });
-                    if (guess.length === 6 && guess === targetWord.toLowerCase()) {
+                    if (guess.length === 6 && guess === word.toLowerCase()) {
                         return true;
                     }
                 }
                 return false;
             }
 
-            function updateHighScore() {
-                if (checkGameWon()) {
-                    if (totalSeconds > highestSeconds) {
-                        highestSeconds = totalSeconds;
-                    }
-                    let highScore = document.getElementById('high-score-value');
-                    highScore.innerHTML = highestSeconds + ' sec';
-                }
-            }
 
             document.addEventListener('keydown', function(event) {
                 if (!gameActive) {
