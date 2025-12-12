@@ -5,6 +5,7 @@
         <title>Worgle</title>
 
         <!-- ****  CSS Feature submission **** -->
+        <!-- using overall dark theme -->
         <style>
             body {
                 margin: 0;
@@ -20,6 +21,7 @@
             }
 
             /* ****  CSS Feature submission **** */
+            /* made a defined center area */
             .game-card {
                 background-color: #2d3748;
                 border: 1px solid #4b5563;
@@ -66,7 +68,7 @@
                 color: #f97316;
             }
 
-            /* ****  CSS Feature submission **** */
+            
             #game-board {
                 background-color: #111827;
                 border: 1px solid #6b7280;
@@ -83,6 +85,8 @@
                 margin-bottom: 5px;
             }
 
+            /* ****  CSS Feature submission **** */
+            /* made each letter tile a specific design */
             .letter-tile {
                 width: 42px;
                 height: 45px;
@@ -102,6 +106,7 @@
             .letter-tile.absent  { background-color: #4b5563; color: #f9fafb; }
 
             /* ****  CSS Feature submission **** */
+            /* styled a keyboard to look polished and organized */
             #keyboard {
                 text-align: center;
                 margin-top: 8px;
@@ -151,14 +156,6 @@
 
             .invalid-row {
                 animation: shake 0.3s;
-            }
-
-            @keyframes shake {
-                0% { transform: translateX(0); }
-                25% { transform: translateX(-4px); }
-                50% { transform: translateX(4px); }
-                75% { transform: translateX(-4px); }
-                100% { transform: translateX(0); }
             }
         </style>
 
@@ -267,8 +264,11 @@
 
         <!-- ****  JavaScript Feature submission **** -->
         <!-- timer and high score logic -->
+        <!-- ****  JavaScript Feature submission **** -->
         <!-- random word selection -->
+        <!-- ****  JavaScript Feature submission **** -->
         <!-- keyboard input handling -->
+        <!-- ****  JavaScript Feature submission **** -->
         <!-- tile coloring based on guess -->
         <script>
             let lives = 8;
@@ -377,7 +377,9 @@
                 }
 
                 for (let i = 0; i < 6; i++) {
-                    if (result[i] === 'correct') continue;
+                    if (result[i] === 'correct') {
+                        continue;
+                    }
                     const idx = remaining.indexOf(guessArr[i]);
                     if (idx !== -1) {
                         result[i] = 'present';
