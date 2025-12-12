@@ -7,9 +7,9 @@
 
         <style>
             /* ****  CSS Feature submission ****
-            -Dark themed body and global typography
-            -Styled game-card container (border, padding, radius)
-            -Letter tile states (correct / present / absent colors)
+            -Dark themed body and a global typography
+            -Styled game-card container with border, padding, radius
+            -Letter tile states (whether it is correct / present / absent colors)
             -On-screen keyboard buttons with hover interaction
             **** */
 
@@ -198,8 +198,6 @@
     </head>
 
     <body>
-        <!-- ****  HTML Feature submission **** -->
-        <!-- Semantic layout using main, section, header -->
         <!-- ****  Bootstrap Feature submission **** -->
         <!-- Bootstrap container-fluid for full-width app -->
         <main class="container-fluid">
@@ -226,8 +224,6 @@
                             </div>
                         </header>
 
-                        <!-- ****  HTML Feature submission **** -->
-                        <!-- Instructions and lives display -->
                         <div id="instructions">
                             <p>Guess the hidden 6-letter word in up to 8 lives.</p>
                             <ul>
@@ -303,9 +299,9 @@
         <!-- ****  JavaScript Feature submission **** -->
         <!-- Random word selection and lives tracking -->
         <!-- ****  JavaScript Feature submission **** -->
-        <!-- Keyboard input handling (physical and on-screen) -->
+        <!-- Keyboard input handling with physical and on-screen -->
         <!-- ****  JavaScript Feature submission **** -->
-        <!-- Tile coloring based on guess correctness -->
+        <!-- Tile coloring based on whether the guess was correct or not -->
         <script>
             let lives = 8;
             let totalSeconds = 0;
@@ -342,8 +338,8 @@
                 timerInterval = setInterval(function() {
                     totalSeconds = totalSeconds + 1;
 
-                    const minutes = Math.floor(totalSeconds / 60);
-                    const seconds = totalSeconds % 60;
+                    let minutes = Math.floor(totalSeconds / 60);
+                    let seconds = totalSeconds % 60;
 
                     let timer = document.getElementById('timer-value');
 
@@ -444,8 +440,12 @@
             }
 
             function handleEnter() {
-                if (!gameActive) return;
-                if (currentCol < 6) return;
+                if (!gameActive) {
+                    return;
+                }
+                if (currentCol < 6) {
+                    return;
+                }
 
                 const dataRow = checkRow();
                 const letterTiles = dataRow.querySelectorAll('.letter-tile');
@@ -454,7 +454,9 @@
                     guess = guess + tile.textContent.toLowerCase();
                 });
 
-                if (guess.length !== 6) return;
+                if (guess.length !== 6) {
+                    return;
+                }
 
                 colorRowTiles(letterTiles, guess);
 
@@ -476,9 +478,15 @@
             }
 
             function handleLetter(letter) {
-                if (!gameActive) return;
-                if (lives <= 0) return;
-                if (currentCol >= 6) return;
+                if (!gameActive) {
+                    return;
+                }
+                if (lives <= 0) {
+                    return;
+                }
+                if (currentCol >= 6) {
+                    return;
+                }
 
                 const dataRow = checkRow();
                 const letterTiles = dataRow.querySelectorAll('.letter-tile');
@@ -487,8 +495,12 @@
             }
 
             function handleBackspace() {
-                if (!gameActive) return;
-                if (currentCol <= 0) return;
+                if (!gameActive) {
+                    return;
+                }
+                if (currentCol <= 0) {
+                    return;
+                }
 
                 const dataRow = checkRow();
                 const letterTiles = dataRow.querySelectorAll('.letter-tile');
@@ -524,7 +536,9 @@
             }
 
             document.addEventListener('keydown', function(event) {
-                if (!gameActive) return;
+                if (!gameActive) {
+                    return;
+                }
                 const key = event.key;
 
                 if (/^[a-zA-Z]$/.test(key)) {
@@ -556,10 +570,13 @@
                 const input = document.getElementById('guess-input');
                 const guess = input.value.trim().toUpperCase();
                 input.value = "";
-                if (!gameActive) return;
-                if (guess.length !== 6) return;
-                let i;
-                for (i = 0; i < 6; i++) {
+                if (!gameActive) {
+                    return;
+                }
+                if (guess.length !== 6) {
+                    return;
+                }
+                for (let i = 0; i < 6; i++) {
                     handleLetter(guess[i]);
                 }
                 handleEnter();
